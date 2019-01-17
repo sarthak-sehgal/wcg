@@ -1,0 +1,2 @@
+# wcg
+Webpack Config Generator
