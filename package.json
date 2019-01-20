@@ -1,0 +1,35 @@
+{
+  "name": "wcg",
+  "version": "1.0.0",
+  "description": "Webpack Config Generator",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sarthak-sehgal/wcg.git"
+  },
+  "keywords": [
+    "webpack",
+    "configuration",
+    "config",
+    "builder",
+    "generator",
+    "bundle"
+  ],
+  "author": "Sarthak Sehgal",
+  "person": {
+    "name": "Sarthak Sehgal",
+    "email": "sarthaksehgal00@gmail.com",
+    "url": "https://sarthak-sehgal.github.io"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sarthak-sehgal/wcg/issues",
+    "email": "sarthaksehgal00@gmail.com"
+  },
+  "homepage": "https://github.com/sarthak-sehgal/wcg#readme",
+  "dependencies": {
+    "inquirer": "^6.2.1"
+  }
+}
