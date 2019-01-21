@@ -1,4 +1,9 @@
+#!/usr/bin/env node
 'use strict';
+
+// get command line arguments
+const [,, ... args] = process.argv;
+
 const inquirer = require('inquirer');
 const fs = require('fs');
 const ora = require('ora');
