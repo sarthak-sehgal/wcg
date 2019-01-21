@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "Webpack Config Generator",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/sarthak-sehgal/wcg.git"
@@ -30,6 +29,11 @@
   },
   "homepage": "https://github.com/sarthak-sehgal/wcg#readme",
   "dependencies": {
-    "inquirer": "^6.2.1"
+    "inquirer": "^6.2.1",
+    "js-beautify": "^1.8.9",
+    "ora": "^3.0.0",
+    "path": "^0.12.7",
+    "vue-loader": "^15.5.1",
+    "webpack": "^4.29.0"
   }
 }
