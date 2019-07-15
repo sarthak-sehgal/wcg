@@ -13,7 +13,7 @@ const inquirer = require("inquirer"),
     { name: 'output', alias: 'o', type: String, default: './' }
   ],
   options = commandLineArgs(optionDefinitions),
-  CONFIG_DIRECTORY = path.resolve(process.cwd(), options.output.trim().replace(' ', '-') || './');
+  CONFIG_DIRECTORY = options.output ? path.resolve(process.cwd(), options.output.trim().replace(' ', '-')) : path.resolve(process.cwd());
 
 // initialise spinner
 let spinner = ora("Setting up webpack");
