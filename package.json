@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sarthak-sehgal/wcg.git"
+    "url": "git+https://github.com/sarthak-sehgal/wcg.git"
   },
   "keywords": [
     "webpack",
@@ -32,11 +32,13 @@
   },
   "homepage": "https://github.com/sarthak-sehgal/wcg#readme",
   "dependencies": {
+    "chalk": "^2.4.2",
+    "child_process": "^1.0.2",
+    "command-line-args": "^5.1.1",
     "inquirer": "^6.2.1",
     "js-beautify": "^1.8.9",
     "ora": "^3.0.0",
-    "path": "^0.12.7",
-    "vue-loader": "^15.5.1",
-    "webpack": "^4.29.0"
-  }
+    "path": "^0.12.7"
+  },
+  "devDependencies": {}
 }
