@@ -13,7 +13,7 @@ const inquirer = require("inquirer"),
     { name: 'output', alias: 'o', type: String, default: './' }
   ],
   options = commandLineArgs(optionDefinitions),
-  CONFIG_DIRECTORY = path.resolve(process.cwd(), options.output || './');
+  CONFIG_DIRECTORY = path.resolve(process.cwd(), options.output.trim().replace(' ', '-') || './');
 
 // initialise spinner
 let spinner = ora("Setting up webpack");
@@ -161,26 +161,37 @@ function cliCreateConfig() {
   spinner = ora("Installing dependencies");
   spinner.color = "blue";
   spinner.start();
+
+  setTimeout(() => {
+    spinner.text = "Still installing dependencies...";
+    spinner.color = "yellow";
+  }, 10000);
+
+  setTimeout(() => {
+    spinner.text = "Almost done...";
+    spinner.color = "green";
+  }, 25000)
+
   const packageManager = config.packageManager;
   if (packageManager === 'npm') {
-    exec(`cd ${CONFIG_DIRECTORY} && npm init -y && npm i --save-dev ${npmConfig.dev.join(" ")} && npm i --save ${npmConfig.save.join(" ")}`, (err) => {
+    exec(`cd "${CONFIG_DIRECTORY}" && npm init -y && npm i --save-dev ${npmConfig.dev.join(" ")} && npm i --save ${npmConfig.save.join(" ")}`, (err) => {
       spinner.stop();
       if (err) {
         console.log(chalk.red.bold('Failed to install dependencies.\n\n'));
         console.log(err);
-        console.log(chalk.yellow('\n\nPlease run the command "npm i --save-dev ${npmConfig.dev.join(" ")} && npm i --save ${npmConfig.save.join(" ")" to manually install dependencies.\n\n'));
+        console.log(chalk.yellow(`\n\nPlease run the command "npm i --save-dev ${npmConfig.dev.join(' ')} && npm i --save ${npmConfig.save.join(' ')}" to manually install dependencies.\n\n`));
         return;
       }
 
       console.log(chalk.green.bold("Dependencies installed. Enjoy! :)\n\n"));
     });
   } else if (packageManager === 'yarn') {
-    exec(`cd ${CONFIG_DIRECTORY} && yarn init -y && yarn add ${npmConfig.dev.join(" ")} --dev && yarn add ${npmConfig.save.join(" ")}`, (err) => {
+    exec(`cd "${CONFIG_DIRECTORY}" && yarn init -y && yarn add ${npmConfig.dev.join(" ")} --dev && yarn add ${npmConfig.save.join(" ")}`, (err) => {
       spinner.stop();
       if (err) {
         console.log(chalk.red.bold('Failed to install dependencies.\n\n'));
         console.log(err);
-        console.log(chalk.yellow('\n\nPlease run the command "npm i --save-dev ${npmConfig.dev.join(" ")} && npm i --save ${npmConfig.save.join(" ")" to manually install dependencies.\n\n'));
+        console.log(chalk.yellow(`\n\nPlease run the command "npm i --save-dev ${npmConfig.dev.join(' ')} && npm i --save ${npmConfig.save.join(' ')}" to manually install dependencies.\n\n`));
         return;
       }
 
