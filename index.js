@@ -170,7 +170,7 @@ function cliCreateConfig() {
   setTimeout(() => {
     spinner.text = "Almost done...";
     spinner.color = "green";
-  }, 25000)
+  }, 30000)
 
   const packageManager = config.packageManager;
   if (packageManager === 'npm') {

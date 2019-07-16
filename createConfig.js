@@ -5,7 +5,8 @@ const path = require('path'),
 
   starterConfig = require('./starterConfig'),
   babelConfigs = require('./babelConfig'),
-  tsReactConfig = require('./tsReactConfig');
+  tsReactConfig = require('./tsReactConfig'),
+  mkdirSync = require('./mkdirSync');
 
 let CONFIG_DIRECTORY;
 
@@ -24,7 +25,7 @@ function createConfig (config, configDirectory) {
   CONFIG_DIRECTORY = configDirectory;
 
   if (!fs.existsSync(configDirectory)) {
-    fs.mkdirSync(configDirectory);
+    mkdirSync(configDirectory);
   }
 
   let fileConfig = {},
@@ -55,6 +56,7 @@ function createConfig (config, configDirectory) {
   // resolve relative paths
   config.entry = resolveRelativePath(config.entry);
   config.filename = resolveRelativePath(config.filename);
+  config.path = resolveRelativePath(config.path);
 
   fileConfig.entry = config.entry;
   fileConfig.output = {
@@ -75,6 +77,9 @@ function createConfig (config, configDirectory) {
 
   // add transcript loader and make other changed if typescript
   if (config.typescript) {
+      // if entry file is .js, make it .tsx
+      config.entry = config.entry.replace('.js', '.tsx');
+
       fileConfig.resolve.extensions.push('.tsx', '.ts');
 
       let obj = {
@@ -138,6 +143,8 @@ function createConfig (config, configDirectory) {
   if (config.babel || config.library === 'React' || config.library === 'Vue') {
     createBabelConfig(config.library, config.typescript);
   }
+
+  createEntryFile(config);
 
   return npmConfig;
 }
@@ -244,7 +251,11 @@ function addCustomConfigRules (config, rules, npmConfig) {
 }
 
 function resolveRelativePath (path) {
-  if (path.indexOf('/') === 0 || path.indexOf('./') === 0) {
+  if (path.indexOf('/') === 0) {
+    return '.' + path;
+  }
+
+  if (path.indexOf('./') === 0) {
     return path;
   }
 
@@ -271,6 +282,17 @@ function getEntryFileDirectory (config) {
   }
 
   return dirPath;
+}
+
+function createEntryFile (config) {
+  const entryFileDir = path.resolve(CONFIG_DIRECTORY, getEntryFileDirectory(config)),
+    entryFilePath = path.resolve(CONFIG_DIRECTORY, config.entry);
+  if (!fs.existsSync(entryFileDir)) {
+    mkdirSync(entryFileDir);
+  }
+  if (!fs.existsSync(entryFilePath)) {
+    fs.writeFileSync(entryFilePath, '', 'utf8');
+  }
 }
 
 module.exports = createConfig;
