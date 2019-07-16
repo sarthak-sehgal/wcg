@@ -76,7 +76,7 @@ inquirer
       type: "input",
       message: "Output file name",
       name: "filename",
-      default: "bundle.js"
+      default: "./bundle.js"
     },
     {
       type: "checkbox",
