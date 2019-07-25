@@ -141,7 +141,7 @@ function createConfig (config, configDirectory) {
   fs.writeFileSync(PATH_TO_CONFIG, fileData, 'utf8');
 
   if (config.babel || config.library === 'React' || config.library === 'Vue') {
-    createBabelConfig(config.library, config.typescript);
+    createBabelConfig(config.library, config.typescript, npmConfig);
   }
 
   createEntryFile(config);
@@ -149,7 +149,9 @@ function createConfig (config, configDirectory) {
   return npmConfig;
 }
 
-function createBabelConfig (library, typescript) {
+function createBabelConfig (library, typescript, npmConfig) {
+  npmConfig.dev.push(...["babel-loader", "@babel/core", "@babel/preset-env"]);
+
   let config = babelConfigs.default,
     filePath = path.resolve(CONFIG_DIRECTORY, '.babelrc');
 
@@ -241,7 +243,7 @@ function imageAndFontLoaders (config, rules, npmConfig) {
 
 function addCustomConfigRules (config, rules, npmConfig) {
   if (config.customLoaders.includes("JavaScript") && !config.babel) {
-    createBabelConfig(config.library, config.typescript);
+    createBabelConfig(config.library, config.typescript, npmConfig);
   }
 
   if (config.customLoaders.includes("HTML")) {

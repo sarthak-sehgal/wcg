@@ -52,10 +52,7 @@ const reactNpm = {
   dev: [
     "webpack",
     "webpack-cli",
-    "babel-loader",
     "@babel/preset-react",
-    "@babel/core",
-    "@babel/preset-env",
     "webpack-dev-server"
   ],
   save: ["react", "react-dom", "react-hot-loader"]
@@ -67,9 +64,6 @@ const vueNpm = {
     "webpack-cli",
     "vue-loader",
     "vue-template-compiler",
-    "babel-loader",
-    "@babel/core",
-    "@babel/preset-env"
   ],
   save: ["vue"]
 };
